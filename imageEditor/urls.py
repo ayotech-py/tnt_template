@@ -18,5 +18,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path("", views.image_editor, name="image_editor")
+    path("", views.image_editor, name="image_editor"),
+    path("property/", views.property_image, name="image_editor"),
 ]

@@ -1,30 +1,30 @@
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
 
-template = Image.open("projectfiles/Bgr_img.jpg")
+""" template = Image.open("projectfiles/Bgr_img.jpg").convert('RGB')
 b_img = "projectfiles/banner.jpeg"
 content = "projectfiles/content_img_png.png"
 card01 = "projectfiles/card01.jpeg"
 card02 = "projectfiles/card02.jpeg"
-card03 = "projectfiles/card03.jpeg"
+card03 = "projectfiles/card03.jpeg" """
 
 
 def p_align_text(astr, font, MAX_W, im):
-    para = textwrap.wrap(astr, width=14)
+    para = textwrap.wrap(astr, width=16)
     draw = ImageDraw.Draw(im)
     if len(astr) <= 30:
-        text_h = 2020
+        text_h = 2040
     elif len(astr) <= 71:
-        text_h = 2020
+        text_h = 2040
     elif len(astr) <= 108:
-        text_h = 2020
+        text_h = 2040
     else:
-        text_h = 2050
+        text_h = 2040
     print(len(astr))
     current_h, pad = text_h, 0
     for line in para:
         w, h = draw.textsize(line, font=font)
-        draw.text((MAX_W, current_h), line, font=font, fill="white")
+        draw.text((MAX_W, current_h), line, font=font, fill=(255, 255, 255))
         current_h += h + pad
     return im
 
@@ -63,19 +63,27 @@ def card_image(template, card_01, card_02, card_03):
 
 
 def detail_texts(template, about_property, location, price):
-    font = ImageFont.truetype("projectfiles/Comic.ttf", 100)
-    price_font = ImageFont.truetype("projectfiles/Comic.ttf", 61)
+    font = ImageFont.truetype("projectfiles/Comic.ttf", 90)
+    price_font = ImageFont.truetype("projectfiles/LeagueSpartan-Bold.otf", 110)
     abt_p_loc_w = 70
-    abt_p_loc_h = 2000
+    location_w = 850
 
     img_text = p_align_text(astr=about_property.upper(), font=font,
                             MAX_W=abt_p_loc_w, im=template)
+
+    img_text = p_align_text(astr=location.upper(), font=font,
+                            MAX_W=location_w, im=img_text)
+    draw = ImageDraw.Draw(img_text)
+    draw.text((1400, 1760), price.upper(), font=price_font, fill="#023020")
+
     img_text.show()
+    return img_text
 
 
-template = template_image(template=template, big_card_img=b_img)
+""" template = template_image(template=template, big_card_img=b_img)
 template = content_image(template=template, content_img=content)
 template = card_image(template=template, card_01=card01,
                       card_02=card02, card_03=card03)
-detail_texts(template=template, about_property="4bedroom Terrace House for sale",
-             location="fdfdf", price="12million")
+detail_texts(template=template, about_property="3bedroom terrace, duplex for sale",
+             location="da-silva Crescent l, Lekki phase 1", price="12million")
+ """

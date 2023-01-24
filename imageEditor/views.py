@@ -1,6 +1,9 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from .forms import PropertyForm
 from PIL import Image
+import urllib.request
+from .edit import *
 
 
 def image_editor(request):
@@ -29,6 +32,16 @@ def property_image(request):
             option = property_form.cleaned_data['option']
             property_form.save()
             img_files = property_form.instance
+            print(img_files.big_card_img.url)
 
         template = Image.open("projectfiles/Bgr_img.jpg")
-        template.resize((2451, 3255))
+        template = template.resize((2451, 3255))
+
+        img_url = "http://127.0.0.1:2222/media/"+img_files.big_card_img.url
+        urllib.request.urlretrieve(img_url, "img.jpeg")
+        template = template_image(template=template, big_card_img="img.jpeg")
+        template.show()
+
+    else:
+        property_form = PropertyForm()
+        return render(request, 'property.html', {'form': property_form})
