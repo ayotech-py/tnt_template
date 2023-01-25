@@ -45,10 +45,24 @@ def property_image(request):
         urllib.request.urlretrieve(bgr_img_url, "img.jpeg")
         template = template_image(template=template, big_card_img="img.jpeg")
 
+        price_h = 0
         if "sale" in option:
             content = "projectfiles/content_img_png.png"
+            price_h = 1760
+        elif "rent" in option:
+            content = "projectfiles/rent_img_png.png"
+            price_h = 1720
 
         template = content_image(template=template, content_img=content)
+
+        if logo:
+            logo_img_url = "http://127.0.0.1:8000"+img_files.logo.url
+            urllib.request.urlretrieve(logo_img_url, "logo.jpeg")
+            template = logo_image(template=template, logo="logo.jpeg")
+
+        else:
+            template = logo_image(
+                template=template, logo="projectfiles/logo.jpg")
 
         card_01_url = "http://127.0.0.1:8000"+img_files.card_01_img.url
         urllib.request.urlretrieve(card_01_url, "card_01")
@@ -61,7 +75,7 @@ def property_image(request):
             template=template, card_01="card_01", card_02="card_02", card_03="card_03")
 
         template = detail_texts(
-            template=template, about_property=about_property, location=location, price=price)
+            template=template, about_property=about_property, location=location, price=price, price_h=price_h)
 
         template.save("media/property.jpeg")
         print(template)

@@ -52,6 +52,18 @@ def content_image(template, content_img):
     return template
 
 
+def logo_image(template, logo):
+    logo = Image.open(logo)
+    logo_w, logo_h = logo.size
+    tmp_h = 200
+    tmp_w = int((tmp_h * logo_w) / logo_h)
+    logo = logo.resize((tmp_w, tmp_h))
+    template_w, template_h = template.size
+    left_x = int((template_w - tmp_w) / 2)
+    template.paste(logo, (left_x, 80))
+    return template
+
+
 def card_image(template, card_01, card_02, card_03):
     pic_w_list = [118, 800, 1485]
     pic_list = [card_01, card_02, card_03]
@@ -62,7 +74,7 @@ def card_image(template, card_01, card_02, card_03):
     return template
 
 
-def detail_texts(template, about_property, location, price):
+def detail_texts(template, about_property, location, price, price_h):
     font = ImageFont.truetype("projectfiles/Comic.ttf", 90)
     price_font = ImageFont.truetype("projectfiles/LeagueSpartan-Bold.otf", 110)
     abt_p_loc_w = 70
@@ -74,15 +86,6 @@ def detail_texts(template, about_property, location, price):
     img_text = p_align_text(astr=location.upper(), font=font,
                             MAX_W=location_w, im=img_text)
     draw = ImageDraw.Draw(img_text)
-    draw.text((1400, 1760), price.upper(), font=price_font, fill="#023020")
+    draw.text((1400, price_h), price.upper(), font=price_font, fill="#023020")
 
     return img_text
-
-
-""" template = template_image(template=template, big_card_img=b_img)
-template = content_image(template=template, content_img=content)
-template = card_image(template=template, card_01=card01,
-                      card_02=card02, card_03=card03)
-detail_texts(template=template, about_property="3bedroom terrace, duplex for sale",
-             location="da-silva Crescent l, Lekki phase 1", price="12million")
- """

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-u8i67js%9u@7wddx9$vu)vf%48a8bcoa4x=ki-d!f_@j8gkq$m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1']
 
 
 # Application definition
@@ -77,8 +77,11 @@ WSGI_APPLICATION = 'tnt_template.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tnt_base',
+        'HOST': 'localhost',
+        'USER': 'root',
+        'PASSWORD': 'mysqlpassword'
     }
 }
 
@@ -129,3 +132,6 @@ MEDIA_URL = '/media/'
 
 # Path where media is stored
 MEDIA_ROOT = BASE_DIR / "media"
+
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
