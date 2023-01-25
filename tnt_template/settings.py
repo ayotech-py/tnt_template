@@ -77,11 +77,8 @@ WSGI_APPLICATION = 'tnt_template.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tnt_base',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': 'mysqlpassword'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'database',
     }
 }
 
