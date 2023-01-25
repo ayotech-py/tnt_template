@@ -20,6 +20,9 @@ def image_editor(request):
 def property_image(request):
     if request.method == "POST":
         property_form = PropertyForm(request.POST, request.FILES)
+        for field in property_form:
+            print(field.errors)
+        #img_files = "hello"
         if property_form.is_valid():
             logo = property_form.cleaned_data['logo']
             big_card_img = property_form.cleaned_data['big_card_img']
@@ -32,11 +35,13 @@ def property_image(request):
             option = property_form.cleaned_data['option']
             property_form.save()
             img_files = property_form.instance
+            print(img_files.big_card_img.url)
 
         template = Image.open("projectfiles/Bgr_img.jpg")
         template = template.resize((2451, 3255))
 
-        bgr_img_url = "http://127.0.0.1:8000/media/"+img_files.big_card_img.url
+        bgr_img_url = "http://127.0.0.1:8000"+img_files.big_card_img.url
+        print(bgr_img_url)
         urllib.request.urlretrieve(bgr_img_url, "img.jpeg")
         template = template_image(template=template, big_card_img="img.jpeg")
 
@@ -45,11 +50,11 @@ def property_image(request):
 
         template = content_image(template=template, content_img=content)
 
-        card_01_url = "http://127.0.0.1:8000/media/"+img_files.card_01_img.url
+        card_01_url = "http://127.0.0.1:8000"+img_files.card_01_img.url
         urllib.request.urlretrieve(card_01_url, "card_01")
-        card_02_url = "http://127.0.0.1:8000/media/"+img_files.card_02_img.url
-        urllib.request.urlretrieve(card_03_url, "card_02")
-        card_03_url = "http://127.0.0.1:8000/media/"+img_files.card_03_img.url
+        card_02_url = "http://127.0.0.1:8000"+img_files.card_02_img.url
+        urllib.request.urlretrieve(card_02_url, "card_02")
+        card_03_url = "http://127.0.0.1:8000"+img_files.card_03_img.url
         urllib.request.urlretrieve(card_03_url, "card_03")
 
         template = card_image(
@@ -58,8 +63,9 @@ def property_image(request):
         template = detail_texts(
             template=template, about_property=about_property, location=location, price=price)
 
-        template.save("static/property.jpeg")
-        template_url = "http://127.0.0.1:8000/static/property.jpeg"
+        template.save("media/property.jpeg")
+        print(template)
+        template_url = "http://127.0.0.1:8000/media/property.jpeg"
         property_form = PropertyForm()
         return render(request, 'property.html', {'form': property_form, "picture": template_url})
 

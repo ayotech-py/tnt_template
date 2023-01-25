@@ -76,7 +76,6 @@ def detail_texts(template, about_property, location, price):
     draw = ImageDraw.Draw(img_text)
     draw.text((1400, 1760), price.upper(), font=price_font, fill="#023020")
 
-    img_text.show()
     return img_text
 
 
