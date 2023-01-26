@@ -50,7 +50,7 @@ def property_image(request):
         response = requests.get(bgr_img_url)
         print(response)
         template = template_image(
-            template=template, big_card_img=BytesIO(response.content))
+            template=template, big_card_img=response.raw)
 
         print(template)
 
