@@ -42,11 +42,12 @@ def property_image(request):
 
         app_url = "https://ayotech-tnt-template.onrender.com"
 
-        bgr_img_url = app_url+img_files.big_card_img.url
-        print(bgr_img_url)
-        urllib.request.urlretrieve(bgr_img_url, "static/img.jpeg")
-        template = template_image(template=template, big_card_img="static/img.jpeg")
-        
+        #bgr_img_url = app_url+img_files.big_card_img.url
+        print(img_files.big_card_img.url)
+        #urllib.request.urlretrieve(bgr_img_url, "static/img.jpeg")
+        template = template_image(
+            template=template, big_card_img=img_files.big_card_img.url)
+
         print(template)
 
         price_h = 0
