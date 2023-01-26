@@ -40,7 +40,9 @@ def property_image(request):
         template = Image.open("projectfiles/Bgr_img.jpg")
         template = template.resize((2451, 3255))
 
-        bgr_img_url = "http://127.0.0.1:8000"+img_files.big_card_img.url
+        app_url = "https://ayotech-tnt-template.onrender.com/"
+
+        bgr_img_url = app_url+img_files.big_card_img.url
         print(bgr_img_url)
         urllib.request.urlretrieve(bgr_img_url, "img.jpeg")
         template = template_image(template=template, big_card_img="img.jpeg")
@@ -56,7 +58,7 @@ def property_image(request):
         template = content_image(template=template, content_img=content)
 
         if logo:
-            logo_img_url = "http://127.0.0.1:8000"+img_files.logo.url
+            logo_img_url = app_url+img_files.logo.url
             urllib.request.urlretrieve(logo_img_url, "logo.jpeg")
             template = logo_image(template=template, logo="logo.jpeg")
 
@@ -64,11 +66,11 @@ def property_image(request):
             template = logo_image(
                 template=template, logo="projectfiles/logo.jpg")
 
-        card_01_url = "http://127.0.0.1:8000"+img_files.card_01_img.url
+        card_01_url = app_url+img_files.card_01_img.url
         urllib.request.urlretrieve(card_01_url, "card_01")
-        card_02_url = "http://127.0.0.1:8000"+img_files.card_02_img.url
+        card_02_url = app_url+img_files.card_02_img.url
         urllib.request.urlretrieve(card_02_url, "card_02")
-        card_03_url = "http://127.0.0.1:8000"+img_files.card_03_img.url
+        card_03_url = app_url+img_files.card_03_img.url
         urllib.request.urlretrieve(card_03_url, "card_03")
 
         template = card_image(
@@ -79,7 +81,7 @@ def property_image(request):
 
         template.save("media/property.jpeg")
         print(template)
-        template_url = "http://127.0.0.1:8000/media/property.jpeg"
+        template_url = app_url+"media/property.jpeg"
         property_form = PropertyForm()
         return render(request, 'property.html', {'form': property_form, "picture": template_url})
 
