@@ -46,7 +46,7 @@ def property_image(request):
         print(img_files.big_card_img.url)
         #urllib.request.urlretrieve(bgr_img_url, "static/img.jpeg")
         template = template_image(
-            template=template, big_card_img=img_files.big_card_img.url)
+            template=template, big_card_img=app_url+img_files.big_card_img.url)
 
         print(template)
 
