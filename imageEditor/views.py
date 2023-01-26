@@ -2,9 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import PropertyForm
 from PIL import Image
-import urllib.request
 import requests
-from io import BytesIO
 from .edit import *
 
 
