@@ -3,6 +3,8 @@ from django.shortcuts import render
 from .forms import PropertyForm
 from PIL import Image
 import urllib.request
+import requests
+from io import BytesIO
 from .edit import *
 
 
@@ -42,11 +44,13 @@ def property_image(request):
 
         app_url = "https://ayotech-tnt-template.onrender.com"
 
-        #bgr_img_url = app_url+img_files.big_card_img.url
-        print(img_files.big_card_img.url)
+        bgr_img_url = app_url+img_files.big_card_img.url
+        print(bgr_img_url)
         #urllib.request.urlretrieve(bgr_img_url, "static/img.jpeg")
+        response = requests.get(bgr_img_url)
+        print(response)
         template = template_image(
-            template=template, big_card_img=app_url+img_files.big_card_img.url)
+            template=template, big_card_img=BytesIO(response.content))
 
         print(template)
 
