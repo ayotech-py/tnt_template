@@ -22,8 +22,6 @@ def image_editor(request):
 def property_image(request):
     if request.method == "POST":
         property_form = PropertyForm(request.POST, request.FILES)
-        for field in property_form:
-            print(field.errors)
         #img_files = "hello"
         if property_form.is_valid():
             logo = property_form.cleaned_data['logo']
@@ -46,7 +44,6 @@ def property_image(request):
 
         bgr_img_url = app_url+img_files.big_card_img.url
         print(bgr_img_url)
-        #urllib.request.urlretrieve(bgr_img_url, "static/img.jpeg")
         response = requests.get(bgr_img_url, stream=True).raw
         print(response)
         template = template_image(
@@ -66,29 +63,29 @@ def property_image(request):
 
         if logo:
             logo_img_url = app_url+img_files.logo.url
-            urllib.request.urlretrieve(logo_img_url, "logo.jpeg")
-            template = logo_image(template=template, logo="logo.jpeg")
+            logo_res = requests.get(logo_img_url, stream=True).raw
+            template = logo_image(template=template, logo=logo_res)
 
         else:
             template = logo_image(
                 template=template, logo="projectfiles/logo.jpg")
 
         card_01_url = app_url+img_files.card_01_img.url
-        urllib.request.urlretrieve(card_01_url, "card_01")
+        card_01_res = requests.get(card_01_url, stream=True).raw
         card_02_url = app_url+img_files.card_02_img.url
-        urllib.request.urlretrieve(card_02_url, "card_02")
+        card_02_res = requests.get(card_02_url, stream=True).raw
         card_03_url = app_url+img_files.card_03_img.url
-        urllib.request.urlretrieve(card_03_url, "card_03")
+        card_03_res = requests.get(card_03_url, stream=True).raw
 
         template = card_image(
-            template=template, card_01="card_01", card_02="card_02", card_03="card_03")
+            template=template, card_01=card_01_res, card_02=card_02_res, card_03=card_03_res)
 
         template = detail_texts(
             template=template, about_property=about_property, location=location, price=price, price_h=price_h)
 
         template.save("media/property.jpeg")
         print(template)
-        template_url = app_url+"media/property.jpeg"
+        template_url = app_url+"/media/property.jpeg"
         property_form = PropertyForm()
         return render(request, 'property.html', {'form': property_form, "picture": template_url})
 
