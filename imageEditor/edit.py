@@ -1,13 +1,6 @@
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
 
-""" template = Image.open("projectfiles/Bgr_img.jpg").convert('RGB')
-b_img = "projectfiles/banner.jpeg"
-content = "projectfiles/content_img_png.png"
-card01 = "projectfiles/card01.jpeg"
-card02 = "projectfiles/card02.jpeg"
-card03 = "projectfiles/card03.jpeg" """
-
 
 def p_align_text(astr, font, MAX_W, im):
     para = textwrap.wrap(astr, width=16)
