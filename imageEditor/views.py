@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import PropertyForm
 from PIL import Image
-import requests
 from .edit import *
+import io
 
 
 def image_editor(request):
@@ -35,15 +35,13 @@ def property_image(request):
             img_files = property_form.instance
             print(img_files.big_card_img.url)
 
-        template = Image.open("projectfiles/Bgr_img.jpg")
+        template = Image.open("/home/aaayotech/tnt_template/static/Bgr_img.jpg")
         template = template.resize((2451, 3255))
 
-        app_url = "https://ayotech-tnt-template.onrender.com"
+        app_url = "/home/aaayotech/tnt_template"
 
         bgr_img_url = app_url+img_files.big_card_img.url
-        print(bgr_img_url)
-        response = requests.get(bgr_img_url, stream=True).raw
-        print(response)
+        response = app_url+img_files.big_card_img.url
         template = template_image(
             template=template, big_card_img=response)
 
@@ -51,29 +49,25 @@ def property_image(request):
 
         price_h = 0
         if "sale" in option:
-            content = "projectfiles/content_img_png.png"
+            content = app_url+"/projectfiles/content_img_png.png"
             price_h = 1760
         elif "rent" in option:
-            content = "projectfiles/rent_img_png.png"
+            content = app_url+"/projectfiles/rent_img_png.png"
             price_h = 1720
 
         template = content_image(template=template, content_img=content)
 
         if logo:
-            logo_img_url = app_url+img_files.logo.url
-            logo_res = requests.get(logo_img_url, stream=True).raw
+            logo_res = app_url+img_files.logo.url
             template = logo_image(template=template, logo=logo_res)
 
         else:
             template = logo_image(
-                template=template, logo="projectfiles/logo.jpg")
+                template=template, logo=app_url+"/projectfiles/logo.jpg")
 
-        card_01_url = app_url+img_files.card_01_img.url
-        card_01_res = requests.get(card_01_url, stream=True).raw
-        card_02_url = app_url+img_files.card_02_img.url
-        card_02_res = requests.get(card_02_url, stream=True).raw
-        card_03_url = app_url+img_files.card_03_img.url
-        card_03_res = requests.get(card_03_url, stream=True).raw
+        card_01_res = app_url+img_files.card_01_img.url
+        card_02_res = app_url+img_files.card_02_img.url
+        card_03_res = app_url+img_files.card_03_img.url
 
         template = card_image(
             template=template, card_01=card_01_res, card_02=card_02_res, card_03=card_03_res)
@@ -81,9 +75,9 @@ def property_image(request):
         template = detail_texts(
             template=template, about_property=about_property, location=location, price=price, price_h=price_h)
 
-        template.save("media/property.jpeg")
+        template.save(app_url+"/media/property.jpeg")
         print(template)
-        template_url = app_url+"/media/property.jpeg"
+        template_url = "https://aaayotech.pythonanywhere.com/media/property.jpeg"
         property_form = PropertyForm()
         return render(request, 'property.html', {'form': property_form, "picture": template_url})
 

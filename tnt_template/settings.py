@@ -77,8 +77,11 @@ WSGI_APPLICATION = 'tnt_template.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'aaayotech$default',
+        'USER': 'aaayotech',
+        'PASSWORD': 'mysqlpassword',
+        'HOST': 'aaayotech.mysql.pythonanywhere-services.com',
     }
 }
 
@@ -131,4 +134,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
+STATIC_ROOT = '/home/aaayotech/tnt_template/staticfiles'
