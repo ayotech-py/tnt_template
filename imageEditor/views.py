@@ -38,7 +38,7 @@ def property_image(request):
         template = Image.open("projectfiles/Bgr_img.jpg")
         template = template.resize((2451, 3255))
 
-        app_url = "https://ayotech-tnt-template.onrender.com"
+        app_url = "http://127.0.0.1:8000"
 
         bgr_img_url = app_url+img_files.big_card_img.url
         print(bgr_img_url)

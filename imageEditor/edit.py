@@ -17,7 +17,7 @@ def p_align_text(astr, font, MAX_W, im):
     current_h, pad = text_h, 0
     for line in para:
         w, h = draw.textsize(line, font=font)
-        draw.text((MAX_W, current_h), line, font=font, fill=(255, 255, 255))
+        draw.text((MAX_W, current_h), line, font=font, fill=(0, 0, 0, 0))
         current_h += h + pad
     return im
 
