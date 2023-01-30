@@ -4,17 +4,13 @@ import textwrap
 app_url = '/home/aaayotech/tnt_template'
 
 def p_align_text(astr, font, MAX_W, im):
-    para = textwrap.wrap(astr, width=16)
+    para = textwrap.wrap(astr, width=22)
     draw = ImageDraw.Draw(im)
-    if len(astr) <= 30:
-        text_h = 2040
-    elif len(astr) <= 71:
-        text_h = 2040
-    elif len(astr) <= 108:
-        text_h = 2040
+    if len(astr) <= 52:
+        text_h = 2050
     else:
-        text_h = 2040
-    print(len(astr))
+        text_h = 2020
+
     current_h, pad = text_h, 0
     for line in para:
         w, h = draw.textsize(line, font=font)
@@ -69,15 +65,15 @@ def card_image(template, card_01, card_02, card_03):
 
 
 def detail_texts(template, about_property, location, price, price_h):
-    font = ImageFont.truetype(app_url+"/projectfiles/Comic.ttf", 90)
-    price_font = ImageFont.truetype(app_url+"/projectfiles/LeagueSpartan-Bold.otf", 110)
+    font = ImageFont.truetype(app_url+"/projectfiles/Comic.ttf", 80)
+    price_font = ImageFont.truetype(app_url+"/projectfiles/LeagueSpartan-Bold.otf", 100)
     abt_p_loc_w = 70
     location_w = 850
 
-    img_text = p_align_text(astr=about_property.upper(), font=font,
+    img_text = p_align_text(astr=about_property.title(), font=font,
                             MAX_W=abt_p_loc_w, im=template)
 
-    img_text = p_align_text(astr=location.upper(), font=font,
+    img_text = p_align_text(astr=location.title(), font=font,
                             MAX_W=location_w, im=img_text)
     draw = ImageDraw.Draw(img_text)
     draw.text((1400, price_h), price.upper(), font=price_font, fill=(180, 0, 36, 160))
