@@ -74,12 +74,12 @@ def detail_texts(template, about_property, location, price, price_h):
     abt_p_loc_w = 70
     location_w = 850
 
-    img_text = p_align_text(astr=about_property.upper(), font=font,
+    img_text = p_align_text(astr=about_property, font=font,
                             MAX_W=abt_p_loc_w, im=template)
 
-    img_text = p_align_text(astr=location.upper(), font=font,
+    img_text = p_align_text(astr=location, font=font,
                             MAX_W=location_w, im=img_text)
     draw = ImageDraw.Draw(img_text)
-    draw.text((1400, price_h), price.upper(), font=price_font, fill=(180, 0, 36, 160))
+    draw.text((1400, price_h), price, font=price_font, fill=(180, 0, 36, 160))
 
     return img_text

@@ -35,14 +35,12 @@ def property_image(request):
             img_files = property_form.instance
             print(img_files.big_card_img.url)
 
-        template = Image.open("/home/aaayotech/tnt_template/static/Bgr_img.jpg")
+        template = Image.open(
+            "/home/aaayotech/tnt_template/static/Bgr_img.jpg")
         template = template.resize((2451, 3255))
 
-<<<<<<< HEAD
-        app_url = "http://127.0.0.1:8000"
-=======
-        app_url = "/home/aaayotech/tnt_template"
->>>>>>> b44a99de5bf28ff55aa5981df409bde3f6c1352c
+        #app_url = "/home/aaayotech/tnt_template"
+        app_url = "/home/ayotech/TNT_TEMPLATE/tnt_template"
 
         bgr_img_url = app_url+img_files.big_card_img.url
         response = app_url+img_files.big_card_img.url
@@ -81,7 +79,8 @@ def property_image(request):
 
         template.save(app_url+"/media/property.jpeg")
         print(template)
-        template_url = "https://aaayotech.pythonanywhere.com/media/property.jpeg"
+        #template_url = "https://aaayotech.pythonanywhere.com/media/property.jpeg"
+        template_url = "/home/ayotech/TNT_TEMPLATE/tnt_template/media/property.jpeg"
         property_form = PropertyForm()
         return render(request, 'property.html', {'form': property_form, "picture": template_url})
 
